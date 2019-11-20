@@ -22,19 +22,22 @@ class JWT
      * @param $uid 需要保存的用户身份标识
      * @return String
      **/
-    public static function createToken($uid = null)
+    public static function createToken($data = [])
     {
         $signer  = new Sha256();
         $secret = "ling@ji)!join*"; //签名秘钥
+        $build = new Builder();
 
-        $token =(new Builder())->setIssuer('admin') //发布者
+        $build->setIssuer('admin') //发布者
             ->setAudience('card.nmgjoin.com') //接收者
-            ->setId('be0748ec77bd', true) //对当前token设置的标识
+            ->setId('factory_flag', true) //对当前token设置的标识
             ->setIssuedAt(time())  //token创建时间
-            ->setExpiration(time() + (86400)) //token有效期时长
+            ->setExpiration(time() + (86400)); //token有效期时长
 
-            ->set('uid', $uid)//自定义数据
-            ->sign($signer, $secret)//设置签名
+            foreach ($data as $k=>$v){
+                $build->set($k, $v);//自定义数据
+            }
+            $token = $build->sign($signer, $secret)//设置签名
             ->getToken();//获取加密后的token，转为字符串
 
         return (String) $token;
@@ -120,6 +123,33 @@ class JWT
         }
         catch (\Exception $e){
             return null;
+        }
+    }
+
+
+    /**
+     * 获取工厂用户数据
+     * @param $tokenstr
+     * @return array|null
+     */
+    public static function getFactoryData($tokenstr){
+        try{
+            $token = (new Parser())->parse((string) $tokenstr);
+            $userDate=[];
+            $userDate["ID"]=$token->getClaim("ID");
+            $userDate["RealName"]=$token->getClaim("RealName");
+            $userDate["MerchantID"]=$token->getClaim("MerchantID");
+            $userDate["MerchantName"]=$token->getClaim("MerchantName");
+            $userDate["MShopID"]=$token->getClaim("MShopID");
+            $userDate["MShopName"]=$token->getClaim("MShopName");
+            $userDate["MAccountRole"]=$token->getClaim("MAccountRole");
+
+            $userDate["LastLoginTime"]=$token->getClaim("LastLoginTime");//上次登录时间
+            $userDate["MerchantAppid"]= $token->getClaim("MerchantAppid");
+            return $userDate;
+        }
+        catch (\Exception $e){
+            return $e->getMessage();
         }
     }
 }

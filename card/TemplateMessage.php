@@ -21,7 +21,14 @@ use think\facade\Log;
  */
 class TemplateMessage
 {
-
+    /**
+     * 发送服务到期通知消息
+     * @param $member_id
+     * @param $merchant_appid
+     * @param $merchant_name
+     * @param $order
+     * @return array
+     */
     public static function SendServiceNotify($member_id,$merchant_appid,$merchant_name,$order){
         Log::record('================发送模板消息开始========================');
 
@@ -48,6 +55,17 @@ class TemplateMessage
         $res = HttpHelper::post_json($url, $data);
         return $res;
     }
+
+
+    /**
+     * 发送用户待支付通知消息
+     * @param $member_id
+     * @param $merchant_appid
+     * @param $merchant_name
+     * @param $pay_url
+     * @param $order
+     * @return array
+     */
 
     public static function SendPayNotify($member_id,$merchant_appid,$merchant_name,$pay_url,$order){
         Log::record('================发送模板消息开始========================');
@@ -78,22 +96,5 @@ class TemplateMessage
     }
 
 
-
-//    public static function Send (){
-//
-////        {
-////          "templateid": 1,
-////          "CardMemberID": 1,
-////          "appid":"11",
-////          "body": "body",
-////          "url":"123"
-////        }
-////
-//
-//        $data = [
-//            'first'=>['value'=>]
-//        ];
-//
-//    }
 
 }

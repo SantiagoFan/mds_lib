@@ -16,7 +16,7 @@ namespace join\utils;
 class Collection
 {
     /**
-     * 从数组中查询 key为value 的对象 若果只有一个则返回该对象，否则返回符合条件的数组集合
+     * 从数组中查询 key为value 的对象 否则返回符合条件的数组集合
      * @param $array
      * @param $key
      * @param $value
@@ -30,10 +30,6 @@ class Collection
                 array_push($data, $v);
             }
         }
-        if (count($data) == 1) {
-            return $data[0];
-        } else {
-            return $data;
-        }
+        return $data;
     }
 }

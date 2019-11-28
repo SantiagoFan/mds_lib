@@ -38,12 +38,13 @@ class Member
         return $res;
     }
 
+
     /**
      * 获取单个会员信息
      * @param $member_id
      * @return array
      */
-    public  static function get($member_id){
+    public static function get($member_id){
         $url = Env::get('join_card.api_url') . '/api/MemberInfo/GetDetail';
         $data = [
             "MemberID" => $member_id,

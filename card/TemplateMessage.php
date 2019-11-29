@@ -95,7 +95,7 @@ class TemplateMessage
 
 
     /**
-     * 发送商户新订单通知
+     * 发送商户新订单通知（未测试）
      * @param $merchant_appid
      * @param $member_name
      * @param $order_code

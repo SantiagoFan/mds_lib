@@ -30,7 +30,6 @@ class TemplateMessage
      * @return array
      */
     public static function SendServiceNotify($member_id,$merchant_appid,$merchant_name,$order){
-        Log::record('================发送模板消息开始========================');
 
         //{{first.DATA}}
         //业务号码：{{keyword1.DATA}}
@@ -68,7 +67,6 @@ class TemplateMessage
      */
 
     public static function SendPayNotify($member_id,$merchant_appid,$merchant_name,$pay_url,$order){
-        Log::record('================发送模板消息开始========================');
 
 //        {{first.DATA}}
 //        成交信息：{{keyword1.DATA}}
@@ -95,6 +93,43 @@ class TemplateMessage
         return $res;
     }
 
+
+    /**
+     * 发送商户新订单通知
+     * @param $merchant_appid
+     * @param $member_name
+     * @param $order_code
+     * @param $amount
+     * @param $time
+     * @param $goods_name
+     * @return array
+     */
+    public static function SendNewOrderNotify($merchant_appid,$member_name,$order_code,$amount,$time,$goods_name){
+
+        //{{first.DATA}}
+        //订单商品：{{keyword1.DATA}}
+        //订单编号：{{keyword2.DATA}}
+        //订单金额：{{keyword3.DATA}}
+        //支付时间：{{keyword4.DATA}}
+        //{{remark.DATA}}
+
+        $data = [
+            "wxtemplate" => 'OPENTM410086703',
+            "appid"=>$merchant_appid,
+            "body"=>json_encode([
+                'first'=>['value'=>'客户：'.$member_name.' 已下单，请尽快处理'],
+                'keyword1'=>['value'=>$goods_name],
+                'keyword2'=>['value'=>$order_code],
+                'keyword3'=>['value'=>$amount],
+                'keyword4'=>['value'=>$time],
+                'remark'=>['value'=>'请尽快处理'],
+            ])
+        ];
+
+        $url = Env::get('join_card.api_url') . '/api/WxTemplate/MerchantSend';
+        $res = HttpHelper::post_json($url, $data);
+        return $res;
+    }
 
 
 }

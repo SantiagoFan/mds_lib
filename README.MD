@@ -15,3 +15,9 @@ git subtree add --prefix=extend/join subtree1 master
 ```
 git subtree push --prefix=extend/join subtree1 master
 ```
+
+
+### 重新拉去最新的子项目
+```
+git subtree pull --prefix=extend/join subtree1 master
+```

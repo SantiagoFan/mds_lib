@@ -19,8 +19,8 @@
 ## 第二步：跳转登录总台登录
 类型 | 地址
 ---|---
-前台跳转登录 | http://testshop.card.nmgjoin.com/Login?return_url=' + encodeURI(return_url_str)
-后台跳转登录 | http://vip.card.nmgjoin.com/SubSystemLogin/?gfappid=' + appid + '&return_url=' + url
+前台跳转登录 | http://{api 域名}/Login?return_url=' + encodeURI(return_url_str)
+后台跳转登录 | http://{前台地址api 域名}/SubSystemLogin/?gfappid=' + appid + '&return_url=' + url
 ## 第三步：回跳cookie获得jwt 后端反解用户基本信息
 jwt(后台)  token_id:be0748ec77bd(用于校验jwt安全性)  
 jwtuser(前台)  token_id:ingjiuser(用于校验jwt安全性)  
@@ -181,18 +181,17 @@ msg      | √ | 信息
 ### 1.查询商户所有门店
 ```
 http://{api 域名}/api/Shop?MerchantID={商户号}  
-eg:shop.card.nmgjoin.com/api/Shop?MerchantID=1
 ```
 ### 1.查询订单详情
 
 
-> 接口地址：http://testshop.card.nmgjoin.com/api/Order/GetOrder  
+> 接口地址：http://{api 域名}/api/Order/GetOrder  
 > 接口类型：POST
 
 接口请求
 参数 | 描述
 ---|---
-url | http://testshop.card.nmgjoin.com/api/Order/GetOrder
+url | http://{api 域名}/api/Order/GetOrder
 参数|  
 $merchantId| 
 outtradeno|
@@ -208,7 +207,7 @@ RealFee | 实际支付
 # 四.资金接口
 
 ### 1.增加余额
-> 接口地址：http://testshop.card.nmgjoin.com/api/Order/AddBlance  
+> 接口地址：http://{api 域名}/api/Order/AddBlance  
 > 接口类型：POST
 
 接口请求

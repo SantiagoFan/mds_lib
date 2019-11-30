@@ -27,7 +27,6 @@ class Auth
     private static $member_token_id = 'lingjiuser';
 
 
-
     /**
      * 从JWT 反解商户信息并返回
      * 不存在则跳转登录
@@ -72,9 +71,18 @@ class Auth
             }
         }
     }
+
     /**
      * 从JWT 反解用户信息并返回
      * 不存在则跳转登录
+     * ID
+     * openid
+     * MerchantID
+     * MerchantName
+     * MerchantAppid
+     * Name
+     * nickname
+     * headimgurl
      */
     public static function GetMember_From_JWT(){
         $appid =input('get.gfappid');

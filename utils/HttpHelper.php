@@ -86,7 +86,7 @@ class HttpHelper
      * @param int $returnCookie 是否返回$cookies
      * @return bool|string
      */
-     public  function curl_request($url,$post='',$cookie='', $returnCookie=0){
+     public static function curl_request($url,$post='',$cookie='', $returnCookie=0){
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)');

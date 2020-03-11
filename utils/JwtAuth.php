@@ -41,7 +41,7 @@ class JwtAuth
      * @param $tokenstr
      * @return array|string Claims data
      */
-    private function getData($tokenstr){
+    public function getData($tokenstr){
         $token = (new Parser())->parse((string) $tokenstr);
         $data =[];
         $userDate = $token->getClaims();
@@ -57,7 +57,7 @@ class JwtAuth
      * @param token
      * @return boolean
      **/
-    private function validateToken($tokenstr = null)
+    public function validateToken($tokenstr = null)
     {
         $signer  = new Sha256();
         try{
@@ -127,16 +127,16 @@ class JwtAuth
         $build = new Builder();
 
         $build->setIssuer($this->issuer) //发布者
-            ->setAudience($this->audience) //接收者
-            ->setId($this->token_id, true) //对当前token设置的标识
-            ->setIssuedAt(time())  //token创建时间
-            ->setExpiration(time() + (86400)); //token有效期时长
+        ->setAudience($this->audience) //接收者
+        ->setId($this->token_id, true) //对当前token设置的标识
+        ->setIssuedAt(time())  //token创建时间
+        ->setExpiration(time() + (86400)); //token有效期时长
 
-            foreach ($data as $k=>$v){
-                $build->set($k, $v);//自定义数据
-            }
-            $token = $build->sign($signer, $this->secret)//设置签名
-            ->getToken();//获取加密后的token，转为字符串
+        foreach ($data as $k=>$v){
+            $build->set($k, $v);//自定义数据
+        }
+        $token = $build->sign($signer, $this->secret)//设置签名
+        ->getToken();//获取加密后的token，转为字符串
         cookie($this->cookie_name,$token,['domain'=>$domain]);
 
         return (String) $token;

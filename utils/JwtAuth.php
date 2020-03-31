@@ -89,7 +89,7 @@ class JwtAuth
      */
     public function GetUserData($login_url){
 
-        $token = header('X-Token')??cookie($this->cookie_name);
+        $token = Request::header('x-token')??cookie($this->cookie_name);
 
         if (empty($token)) {
             //ajax

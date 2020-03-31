@@ -26,14 +26,14 @@ class JwtAuth
 
     private $cookie_name ="";
 
-    function __construct($token_id,$secret,$audience="nmgjoin.com",$issuer ="nmgjoin.com")
+    function __construct($token_id,$secret,$audience="nmgjoin.com",$issuer ="nmgjoin.com",$cookie_name="")
     {
         $this->token_id= $token_id;
         $this->secret =$secret;
         $this->audience =$audience;
         $this->issuer =$issuer;
 
-        $this->cookie_name =$this->token_id."_jwt";
+        $this->cookie_name =$cookie_name ?? $this->token_id."_jwt";
     }
 
     /**
@@ -65,7 +65,7 @@ class JwtAuth
 
             //验证是否修改过
             if(!$token->verify($signer,$this->secret)){
-                return ['code'=>-1,"msg"=>"token sign faild"];
+                return false;
             }
             // 验证是否过期
             $data = new ValidationData();
@@ -73,14 +73,14 @@ class JwtAuth
             $data->setAudience($this->audience);
             $data->setId($this->token_id);
             if ($token->validate($data)){
-                return ['code'=>0,"msg"=>"validate success"];
+                return true;
             }
             else{
-                return ['code'=>-1,"msg"=>"validate error"];
+                return false;
             }
         }
         catch (\Exception $e){
-            return ['code'=>-1,"msg"=>$e->getMessage()];
+            return false;
         }
     }
 
@@ -89,7 +89,7 @@ class JwtAuth
      */
     public function GetUserData($login_url){
 
-        $token = cookie($this->cookie_name);
+        $token = header('X-Token')??cookie($this->cookie_name);
 
         if (empty($token)) {
             //ajax
@@ -101,8 +101,7 @@ class JwtAuth
             }
         } else {
             $is_success = $this->validateToken($token);
-
-            if ($is_success["code"] != 0) { //校验不成功
+            if (!$is_success) { //校验不成功
 
                 if (Request::isAjax()) {
                     $response = json(['code' => 50012, 'message' => '登录超时请重新登录']);

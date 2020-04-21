@@ -18,6 +18,17 @@ namespace join\utils;
 class ErrorCode
 {
     const success = 20000;
+    /**
+     * 参数错误
+     */
+    const err_parasm = 40001;
+    /**
+     * 操作对象错误
+     */
+    const err_target =41000;
+    /**
+     *
+     */
     const error = 50000;
     /**
      * 登录失效

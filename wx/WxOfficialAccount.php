@@ -17,10 +17,11 @@ class WxOfficialAccount
     // | 公众号配置
     // +----------------------------------------------------------------------
     public static function getConfig(){
-        return Config::get('wx');
+        return Config::get('wx_official');
     }
-    /**
-     * 获得页面wechat.js 的配置
+
+    /***
+     * 获得页面wchat.js 的配置参数
      */
     public static function getJDKConfig(){
         $config=self::getConfig();
@@ -33,14 +34,16 @@ class WxOfficialAccount
 
     /**
      * 拉取微信用户信息
-     * 授权方式 $scopes
-     * snsapi_userinfo(默认,显示授权)
-     * snsapi_base(静默)
+     * @param null $config 不传值则使用 config 文件中的配置
+     * @param string $scopes 授权方式 $scopes: snsapi_userinfo(默认,显示授权)/snsapi_base(静默)
+     * @return 用户
      */
-    public static function getUserInfo($scopes='snsapi_userinfo'){
+    public static function getUserInfo($config=null,$scopes='snsapi_userinfo'){
         // 当前页面地址
         $target_url ='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        $config = self::getConfig();
+        if($config==null){
+            $config = self::getConfig();
+        }
         $config['oauth']=[
             'scopes'   => [$scopes],
             'callback' => $target_url,

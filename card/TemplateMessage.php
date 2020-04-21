@@ -104,7 +104,7 @@ class TemplateMessage
      * @param $goods_name
      * @return array
      */
-    public static function SendNewOrderNotify($merchant_appid,$member_name,$order_code,$amount,$time,$goods_name){
+    public static function SendNewOrderNotify($merchant_appid,$member_name,$order_code,$amount,$time,$goods_name,$remark='请尽快处理'){
 
         //{{first.DATA}}
         //订单商品：{{keyword1.DATA}}
@@ -122,7 +122,7 @@ class TemplateMessage
                 'keyword2'=>['value'=>$order_code],
                 'keyword3'=>['value'=>$amount],
                 'keyword4'=>['value'=>$time],
-                'remark'=>['value'=>'请尽快处理'],
+                'remark'=>['value'=>$remark],
             ])
         ];
 

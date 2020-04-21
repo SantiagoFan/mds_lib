@@ -52,4 +52,28 @@ class Member
         $res = HttpHelper::post_json($url, $data);
         return $res;
     }
+
+    //获取用户次卡
+    public static function getCardList($member)
+    {
+        $url = Env::get('join_card.api_url') . '/api/TimeCard/GetList';
+        $data = [
+            "CardMemberID" => $member['ID'],
+        ];
+        $res = HttpHelper::post_json($url, $data);
+        return $res;
+    }
+
+    //次卡核销
+    public static function cancelCard($order,$detail)
+    {
+        $url = Env::get('join_card.api_url') . '/api/TimeCard/Verify';
+        $data = [
+            "CardMemberID"=>$order['customer_id'],
+            "RecordID"=>$detail['card_id'],
+            "MAccountID"=>$order['operator_id']
+        ];
+        $res = HttpHelper::post_json($url, $data);
+//        file_put_contents("fffffffffffffff.txt",var_export($res,true).":".__LINE__.PHP_EOL,FILE_APPEND);
+    }
 }

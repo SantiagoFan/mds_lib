@@ -29,10 +29,11 @@ class Order
         $params=[
             "OrderNum"=>$order["id"],
             "Amount"=>$order["total_amount"],
-            "NotifyLink"=>'http://crm.card.nmgjoin.com/',// PC结算成功后跳转链接
-            "NotifyMobileLink"=>$url_web.'/?appid='.$MerchantAppid,// 移动版结算成功后跳转链接
+            "NotifyLink"=>'http://mei.card.nmgjoin.com/admin/order/index',// PC结算成功后跳转链接
+            "NotifyMobileLink"=>'http://mei.card.nmgjoin.com/wap/order/index',// 移动版结算成功后跳转链接
             "DetailUrl"=>"",//PC 订单详情
-            "NotifyUrl"=>'http://crm.card.nmgjoin.com/api/Notify/index',//结算成功后通知成功url//返回{code:"0"},
+            "NotifyUrl"=>'http://mei.card.nmgjoin.com/api/Notify/index',//结算成功后通知成功url//返回{code:"0"},
+            "MShopID"=>$order["store_id"],
             "Memo"=>'服务订单',
             "appid"=>$MerchantAppid,
             "Type"=>1

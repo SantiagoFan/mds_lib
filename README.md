@@ -13,7 +13,7 @@ git subtree add --prefix=extend/join mds_lib master
 
 ### 后期修改子项目后提交正常提交就可以  如果是想提交到公共库项目中
 ```
-git subtree push --prefix=extend/join mds_lib master
+git subtree push --prefix=extend/mds mds_lib master
 ```
 
 ### 重新拉去最新的子项目

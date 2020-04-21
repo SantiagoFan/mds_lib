@@ -18,5 +18,5 @@ git subtree push --prefix=extend/mds mds_lib master
 
 ### 重新拉去最新的子项目
 ```
-git subtree pull --prefix=extend/join mds_lib master
+git subtree pull --prefix=extend/mds mds_lib master
 ```

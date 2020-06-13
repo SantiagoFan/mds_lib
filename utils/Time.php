@@ -22,4 +22,14 @@ class Time
     public static function now($format='Y-m-d H:i:s'){
         return date($format);
     }
+    
+    /**
+     * 当前时间加几天
+     * @param $number
+     * @param string $format  格式标准
+     * @return false|string
+     */
+    public static function addDay($number,$format='Y-m-d H:i:s'){
+        return date($format,strtotime("+".$number." day"));
+    }
 }
